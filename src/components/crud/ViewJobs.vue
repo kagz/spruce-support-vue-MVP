@@ -4,12 +4,14 @@
       <vuestic-widget headerText="My Posted Jobs">
         <vuestic-accordion>
           <vuestic-collapse>
-            <span slot="header">Expand This Block</span>
+            <span slot="header">View This Job</span>
             <div slot="body">
               <div class="row">
                 <div class="col-md-12">
                   <div class="collapse-page__content">
                     <h4 class="collapse-page__content__title">February 2018</h4>
+                      <h4 class="collapse-page__content__title">Home</h4>
+                        <h4 class="collapse-page__content__title">4:20</h4>
                     <div>
                       The unique stripes of zebras make them one of the animals
                       most familiar to people. They occur in a variety of habitats,
@@ -17,25 +19,19 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-sm-6 col-lg-6 col-xl-3 d-flex justify-content-center">
+                <div class="col-sm-6 col-lg-6 col-xl-3 d-flex downthere">
                  
                     <button class="btn btn-dark btn-micro btn-with-icon rounded-icon">
                       <div class="btn-with-icon-content">
-                        <i class="ion-md-heart ion"></i>
+                        <i class="fa fa-heart" aria-hidden="true"></i>
                       </div>
                     </button>
 
-                    <!-- <button class="btn btn-success btn-with-icon btn-micro rounded-icon">
-                      <div class="btn-with-icon-content">
-                        <i class="ion-md-pencil ion"></i>
-                      </div>
-                    </button>
-
-                    <button class="btn btn-danger btn-micro btn-with-icon rounded-icon">
-                      <div class="btn-with-icon-content">
-                        <i class="ion-md-close ion"></i>
-                      </div>
-                    </button> -->
+                   <div>
+                      <a class="btn btn-with-icon btn-success btn-micro rounded-icon my-2 my-sm-0">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                      </a>
+                    </div>
                  
                 </div>
               </div>
@@ -55,6 +51,12 @@ export default {
 </script>
 
 <style lang="scss">
+
+.downthere {
+ 
+  justify-content: space-between;
+padding: 20px;
+}
 .collapse-page {
   &__content {
     padding: 2rem;

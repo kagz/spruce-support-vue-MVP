@@ -40,6 +40,10 @@ export default {
           name: 'login',
           redirectTo: 'login',
         },
+        {
+          name: 'Log-out',
+          redirectTo: 'login',
+        },
       ],
     },
   },

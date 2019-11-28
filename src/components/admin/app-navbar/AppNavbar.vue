@@ -70,10 +70,7 @@ export default {
           name: this.$t("Views"),
           logo: "vuestic-icon-forms",
           options: [
-              {
-              name: this.$t("View Profile"),
-              link: "myprofile"
-            },
+           
             {
               name: this.$t("View Staffs"),
               link: "viewstaffs"
@@ -83,7 +80,10 @@ export default {
               name: this.$t("View Clients"),
               link: "viewclients"
             },
-          
+              {
+              name: this.$t("Edit My Profile"),
+              link: "myprofile"
+            },
           ]
         },
       

@@ -7,6 +7,13 @@
 
             </div>
     <form method="post" action="/auth/signup" name="signup">
+         <div class="form-group">
+        <div class="input-group">
+          <input type="text" id="email" required="required"/>
+          <label class="control-label" for="email">Full Name</label><i class="bar"></i>
+        </div>
+      </div>
+      
       <div class="form-group">
         <div class="input-group">
           <input type="text" id="email" required="required"/>

@@ -2,7 +2,7 @@
   <div class="myprofile">
     <div class="container">
       <div class="col-md-12">
-        <vuestic-widget headerText="Create a Profile">
+        <vuestic-widget headerText="Update Profile">
           <form>
             <div class="row">
               <div class="col-md-6">
@@ -68,7 +68,7 @@
               </div>
             </div>
             <div class="col-sm-6 col-lg-6 col-xl-3 d-flex justify-content-center">
-              <button class="btn btn-dark">Create Profile</button>
+              <button class="btn btn-dark">Update Profile</button>
             </div>
           </form>
         </vuestic-widget>

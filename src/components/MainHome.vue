@@ -545,7 +545,7 @@ li.pricing-title {
 }
 
 .contact {
-  background-image: url("../assets/img/landing/word_map.png");
+  background-image: url("../assets/img/landing/avatar_all.png");
   background-position: 50% 50%;
   background-repeat: no-repeat;
   margin-top: 60px;

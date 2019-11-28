@@ -10,7 +10,7 @@
                   <div class="form-group">
                     <div class="input-group">
                       <input id="simple-input" required />
-                      <label class="control-label" for="simple-input">First Name</label>
+                      <label class="control-label" for="simple-input">Client or Company Name</label>
                       <i class="bar"></i>
                     </div>
                   </div>
@@ -18,7 +18,7 @@
                   <div class="form-group">
                     <div class="input-group">
                       <input id="simple-input" required />
-                      <label class="control-label" for="simple-input">Second Name</label>
+                      <label class="control-label" for="simple-input">Location</label>
                       <i class="bar"></i>
                     </div>
                   </div>
@@ -39,7 +39,7 @@
      <div class="form-group">
                     <div class="input-group">
                       <input id="simple-input" required />
-                      <label class="control-label" for="simple-input">Passport Number</label>
+                      <label class="control-label" for="simple-input">Phone Number</label>
                       <i class="bar"></i>
                     </div>
                   </div>
@@ -47,13 +47,9 @@
 
 
                 <fieldset>
-                  <div class="form-group">
-                    <div class="input-group">
-                      <input id="simple-input" required />
-                      <label class="control-label" for="simple-input">Phone Number</label>
-                      <i class="bar"></i>
-                    </div>
-                  </div>
+               <div>
+                Attach logo
+               </div>
 
               
 
@@ -68,7 +64,7 @@
               </div>
             </div>
             <div class="col-sm-6 col-lg-6 col-xl-3 d-flex justify-content-center">
-              <button class="btn btn-dark">Create Profile</button>
+              <button class="btn btn-dark">Create Client</button>
             </div>
           </form>
         </vuestic-widget>
