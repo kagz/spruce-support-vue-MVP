@@ -2,7 +2,6 @@
 	"name": "spruce_support_limited",
 	"version": "1.0.0",
 	"description": "front end redesign with Vue.js dashboard template ",
-
 	"private": false,
 	"scripts": {
 		"dev": "vue-cli-service serve",
@@ -28,6 +27,7 @@
 		"detect-browser": "^3.0.0",
 		"element-resize-detector": "^1.1.12",
 		"epic-spinners": "^1.0.1",
+		"firebase": "^7.5.0",
 		"flag-icon-css": "^3.0.0",
 		"font-awesome": "^4.7.0",
 		"gemini-scrollbar": "^1.5.1",
@@ -91,7 +91,13 @@
 		"pre-commit": "lint-staged"
 	},
 	"lint-staged": {
-		"*.js": [ "vue-cli-service lint", "git add" ],
-		"*.vue": [ "vue-cli-service lint", "git add" ]
+		"*.js": [
+			"vue-cli-service lint",
+			"git add"
+		],
+		"*.vue": [
+			"vue-cli-service lint",
+			"git add"
+		]
 	}
 }

@@ -1,84 +1,128 @@
 <template>
-   <div class="login">
-      <div >
-     <div>
+  <div class="login">
+    <div>
+      <div v-if="error">
+        <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
+      </div>
 
-                <h1 class="logo-name">Spruce </h1>
+      <div>
+        <h1 class="logo-name">Spruce</h1>
+      </div>
+      <form @submit.prevent="onSignin">
+        <div class="form-group">
+          <div class="input-group">
+            <input
+              name="email"
+              label="Mail"
+              id="email"
+              v-model="email"
+              type="email"
+              required="required"
+            />
+            <label class="control-label" for="email">{{'auth.email' | translate}}</label>
+            <i class="bar"></i>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <input
+              required="required"
+              name="password"
+              label="Password"
+              id="password"
+              v-model="password"
+              type="password"
+            />
+            <label class="control-label" for="password">{{'auth.password' | translate}}</label>
+            <i class="bar"></i>
+          </div>
+        </div>
 
+        <div
+          class="d-flex flex-column flex-lg-row align-items-center justify-content-between down-container"
+        >
+          <button class="btn btn-dark" type="submit">
+            Login
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
             </div>
-    <form method="post" action="/auth/login" name="login">
-      <div class="form-group">
-        <div class="input-group">
-          <input type="text" id="email" required="required"/>
-          <label class="control-label" for="email">{{'auth.email' | translate}}</label><i class="bar"></i>
+          </button>
+          <router-link class="link" :to="{name: 'signup'}">Register an account?</router-link>
         </div>
-      </div>
-      <div class="form-group">
-        <div class="input-group">
-          <input type="password" id="password" required="required"/>
-          <label class="control-label" for="password">{{'auth.password' | translate}}</label><i class="bar"></i>
-        </div>
-      </div>
-  
-      <div class="d-flex flex-column flex-lg-row align-items-center justify-content-between down-container">
-        <button class="btn btn-dark" type="submit">
-         Login
-        </button>
-        <router-link class='link' :to="{name: 'signup'}">Register an account?</router-link>
-      </div>
-    </form>
-  </div>
+      </form>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'login',
-   data(){
-      return {
-          name:null,
-          email:null,
-          password:null
-      }
+  name: "login",
+  data() {
+    return {
+      name: null,
+      email: null,
+      password: null
+    };
   },
-  
-  methods:{
-      login(){
-      },
-      register(){
+  computed: {
+    user() {
+      return this.$store.getters.user;
+    },
+
+    error() {
+      return this.$store.getters.error;
+    },
+    loading() {
+      return this.$store.getters.loading;
+    }
+  },
+  watch: {
+    user(value) {
+      if (value !== null && value !== undefined) {
+        this.$router.push("/admin/dashboard");
       }
-
+    }
+  },
+  methods: {
+    onSignin() {
+      this.$store.dispatch("signUserIn", {
+        email: this.email,
+        password: this.password
+      });
+    },
+    onDismissed() {
+      this.$store.dispatch("clearError");
+    }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-  .login {
-    @include media-breakpoint-down(md) {
-      width: 100%;
-      padding-right: 2rem;
-      padding-left: 2rem;
-      .down-container {
-        .link {
-          margin-top: 2rem;
-        }
+.login {
+  @include media-breakpoint-down(md) {
+    width: 100%;
+    padding-right: 2rem;
+    padding-left: 2rem;
+    .down-container {
+      .link {
+        margin-top: 2rem;
       }
     }
-.logo-name {
-  color: #e6e6e6;
-  font-size: 100px;
-  font-weight: 800;
-  letter-spacing: -10px;
-  margin-bottom: 50px;
-}
-    h2 {
-      text-align: center;
-    }
-    width: 21.375rem;
-
-    .down-container {
-      margin-top: 3.125rem;
-    }
   }
+  .logo-name {
+    color: #e6e6e6;
+    font-size: 100px;
+    font-weight: 800;
+    letter-spacing: -10px;
+    margin-bottom: 50px;
+  }
+  h2 {
+    text-align: center;
+  }
+  width: 21.375rem;
+
+  .down-container {
+    margin-top: 3.125rem;
+  }
+}
 </style>
