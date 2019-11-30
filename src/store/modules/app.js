@@ -4,7 +4,7 @@ const state = {
     withoutAnimation: false
   },
   config: {
-    // googleMaps: {
+    // googleMaps: {$store.state.app.config.palette.primary
     //   apiKey: 'AIzaSyBNAqPrTQoz9P4NBlDDyfxrnKiafkaL8iQ'
     // },
     windowMatchSizeLg: '(min-width: 992px)',

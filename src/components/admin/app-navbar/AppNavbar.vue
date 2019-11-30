@@ -15,8 +15,9 @@
     ></menu-dropdown>
 
     <profile-dropdown slot="profile" class="col-xs-1 nav-item">
-      <img src="http://www.synapse-developpement.fr/wp-content/uploads/2017/01/mathilde-lannes-e1541168117479.png"/>
-    </profile-dropdown>
+      <img src=""/>
+
+</profile-dropdown>
   </vuestic-navbar>
 
 </template>

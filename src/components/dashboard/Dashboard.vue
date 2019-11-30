@@ -3,7 +3,7 @@
     <div class="auth-wallpaper col-12">
       <div class="oblique"></div>
       <div class="auth-wallpaper__logo">
-        <div class="title"> Spruce Support  </div>
+        <div class="title"> Spruce 69 Support  </div>
        
       </div>
     </div>

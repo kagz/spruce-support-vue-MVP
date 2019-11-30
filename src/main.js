@@ -6,6 +6,7 @@ import * as firebase from 'firebase'
 import store from './store'
 import router from './router'
 import AlertCmp from './components/crud/shared/Alert'
+import DateFilter from './components/crud/shared/date'
 import VuesticPlugin from '@/vuestic-theme/vuestic-plugin'
 import './i18n'
 import YmapPlugin from 'vue-yandex-maps'
@@ -14,13 +15,13 @@ import VueCarousel from 'vue-carousel'
 Vue.use(VueCarousel)
 Vue.use(VuesticPlugin)
 Vue.use(YmapPlugin)
+Vue.filter('date', DateFilter)
 Vue.component('app-alert', AlertCmp)
 // NOTE: workaround for VeeValidate + vuetable-2
 Vue.use(VeeValidate, { fieldsBagName: 'formFields' })
 
 router.beforeEach((to, from, next) => {
   store.dispatch('clearError')
-
   store.commit('setLoading', true)
   next()
 })
@@ -47,11 +48,11 @@ new Vue({
     })
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        store.dispatch('clearError')
+        // store.dispatch('clearError')
         this.$store.dispatch('autoSignIn', user)
         this.$store.dispatch('fetchUserData')
       }
     })
-    // this.$store.dispatch('loadMeetups')
+    this.$store.dispatch('loadJobs')
   }
 })

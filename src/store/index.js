@@ -4,21 +4,25 @@ import VuexI18n from 'vuex-i18n' // load vuex i18n module
 
 import app from './modules/app'
 import user from './modules/user.js'
+import job from './modules/job.js'
 import shared from './modules/shared'
 
 import * as getters from './getters'
 
 Vue.use(Vuex)
-
+// $store.state.app.config.palette.primary
 const store = new Vuex.Store({
   strict: true, // process.env.NODE_ENV !== 'production',
   getters,
   modules: {
     app,
-    user,
-    shared
+    job: job,
+    user: user,
+    shared: shared
   },
-  state: {},
+  state: {
+
+  },
   mutations: {}
 })
 

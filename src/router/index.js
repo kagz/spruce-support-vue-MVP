@@ -4,7 +4,7 @@ import AppLayout from '../components/admin/AppLayout'
 import AuthLayout from '../components/auth/AuthLayout'
 import MainHome from '../components/MainHome'
 import lazyLoading from './lazyLoading'
-
+import AuthGuard from '../router/auth-guard'
 Vue.use(Router)
 
 const demoRoutes = []
@@ -56,6 +56,7 @@ export default new Router({
       name: 'Admin',
       path: '/admin',
       component: AppLayout,
+      beforeEnter: AuthGuard,
       children: [
         {
           name: 'dashboard',

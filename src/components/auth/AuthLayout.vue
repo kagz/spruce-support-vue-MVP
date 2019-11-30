@@ -44,30 +44,6 @@ export default {
         justify-content: center;
         background-color: white;
       }
-      .auth-wallpaper {
-        background-color: $top-nav-bg;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        &__logo {
-          height: $auth-wallpaper-ivuestic-h;
-          z-index: 2;
-          width: 100%;
-        }
-        .vuestic-icon-vuestic {
-          height: $auth-wallpaper-ivuestic-h;
-          width: 100%;
-        }
-        .oblique {
-          position: absolute;
-          background-color: $auth-wallpaper-oblique-line;
-          left: calc(50% - 27%/2);
-          transform: rotate(15deg);
-          width: 27%;
-          height: 115%;
-        }
-      }
     }
 
     @include media-breakpoint-down(md) {

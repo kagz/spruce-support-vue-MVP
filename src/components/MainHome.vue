@@ -450,8 +450,8 @@ export default {
     },
   },
   computed: {
-    // meetups() {
-    //   return this.$store.getters.featuredMeetups;
+    // jobs() {
+    //   return this.$store.getters.featuredJobs;
     // },
     // loading() {
     //   return this.$store.getters.loading;

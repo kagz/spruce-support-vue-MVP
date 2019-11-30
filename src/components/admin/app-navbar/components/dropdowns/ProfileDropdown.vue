@@ -12,7 +12,7 @@
         :key="option.name"
         class="dropdown-item plain-link-item"
       >
-        <router-link :to="{name: option.redirectTo}" class="plain-link" href="#">
+        <router-link :to="{name: option.redirectTo}" class="plain-link" href="/admin/dashboard">
           {{option.name}}
         </router-link>
       </div>
@@ -47,6 +47,11 @@ export default {
       ],
     },
   },
+
+
+
+
+
 }
 </script>
 
