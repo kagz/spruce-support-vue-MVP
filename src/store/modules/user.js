@@ -33,7 +33,10 @@ export default {
         .push(payload)
         .then(data => {
           commit('setLoading', false)
-          commit('registerUserForJob', { id: payload, fbKey: data.key })
+          commit('registerUserForJob', {
+            id: payload,
+            fbKey: data.key
+          })
         })
         .catch(error => {
           console.log(error)
@@ -72,6 +75,8 @@ export default {
             commit('setLoading', false)
             const newUser = {
               id: user.uid,
+              email: user.email,
+              profile: [],
               registeredJobs: [],
               fbKeys: {}
             }
@@ -97,6 +102,8 @@ export default {
             commit('setLoading', false)
             const newUser = {
               id: user.uid,
+              email: user.email,
+              profile: [],
               registeredJobs: [],
               fbKeys: {}
             }
@@ -116,6 +123,8 @@ export default {
     }, payload) {
       commit('setUser', {
         id: payload.uid,
+        email: payload.email,
+        profile: [],
         registeredJobs: [],
         fbKeys: {}
       })
@@ -137,6 +146,9 @@ export default {
           const updatedUser = {
             id: getters.user.id,
             registeredJobs: registeredJobs,
+            email: getters.user.email,
+            profile: [],
+
             fbKeys: swappedPairs
           }
           commit('setLoading', false)

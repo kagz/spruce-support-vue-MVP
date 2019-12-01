@@ -3,7 +3,15 @@
     <div class="auth-wallpaper col-12">
       <div class="oblique"></div>
       <div class="auth-wallpaper__logo">
-        <div class="title"> Spruce 69 Support  </div>
+        <div class="title" style="margin-top:10px"> Spruce 
+          
+           Support  </div>
+        <div style="margin-top:30%">
+
+            <h5 style="color:red; " >
+             Logged as:  {{profile.email}}
+          </h5>
+        </div>
        
       </div>
     </div>
@@ -16,6 +24,26 @@
 export default {
   name: 'dashboard',
 
+  data(){
+      return{
+          name:null,
+          email:null,
+      }
+  },
+
+
+computed: {
+      profile () {
+        return this.$store.getters.user
+      },
+
+
+}
+  // created(){
+  //     let user = fb.auth().currentUser;
+  //     this.email = user.email;
+
+  // }
 }
 
 </script>

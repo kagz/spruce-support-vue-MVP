@@ -2,7 +2,7 @@
   <div class="collapse-page row">
     <div class="container">
       <vuestic-widget headerText="My Posted Jobs">
-        <vuestic-accordion v-for="job in jobs" :key="job.id">
+        <vuestic-accordion v-for="job in jobs.slice().reverse()" :key="job.id">
           <div class="jobscard">
             <vuestic-collapse>
               <span slot="header">
