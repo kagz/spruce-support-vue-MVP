@@ -9,31 +9,31 @@
                 <fieldset>
                   <div class="form-group">
                     <div class="input-group">
-                      <input v-model="title" id="simple-input" required />
-                      <label class="control-label" for="simple-input">Job Title</label>
+                      <input v-model="title" id="title" required />
+                      <label class="control-label" for="title">Job Title</label>
                       <i class="bar"></i>
                     </div>
                   </div>
 
                   <div class="form-group">
                     <div class="input-group">
-                      <input id="simple-input" v-model="staffs" required />
-                      <label class="control-label" for="simple-input">Staffs Needed</label>
+                      <input id="staffs" v-model="staffs" required />
+                      <label class="control-label" for="staffs">Staffs Needed</label>
                       <i class="bar"></i>
                     </div>
                   </div>
 
                   <div class="form-group">
                     <div class="input-group">
-                      <input v-model="location" id="simple-input" required />
-                      <label class="control-label" for="simple-input">Location</label>
+                      <input v-model="location" id="location" required />
+                      <label class="control-label" for="location">Location</label>
                       <i class="bar"></i>
                     </div>
                   </div>
 
                   <div class="form-group">
                     <div class="input-group">
-                      <textarea v-model="jobdescription" type="text" id="simple-textarea" required></textarea>
+                      <textarea v-model="description" type="text" id="simple-textarea" required></textarea>
                       <label class="control-label" for="simple-textarea">Job Description</label>
                       <i class="bar"></i>
                     </div>
@@ -87,7 +87,6 @@
 <script>
 import axios from "axios";
 
-
 export default {
   name: "addjob",
 
@@ -96,7 +95,7 @@ export default {
       title: "",
       location: "",
       clientname: "",
-      jobdescription: "",
+      description: "",
       imageUrl: "",
       imagePath: "",
       staffs: 1,
@@ -110,60 +109,44 @@ export default {
     handleFileUpload() {
       this.file = this.$refs.file.files[0];
     },
-
-    // clear(field) {
-    //   this[field] = "";
-    // },
-
     async onCreateJob() {
       if (!this.formIsValid) {
         return;
       }
       let formData = new FormData();
       formData.append("file", this.file);
-
-
-//  axios.defaults.headers = {
-//         // 'Content-Type': 'application/json',
-//        "Access-Control-Allow-Origin": "*"
-//     }
-
-
+      
       await axios
         .post(
-          'https://us-central1-kamagera-aa372.cloudfunctions.net/storeImage',
-          formData,
-  {
-    
-    headers: {
-         'Access-Control-Allow-Origin': true,
-         crossorigin:true,
-          xsrfCookieName: 'XSRF-TOKEN',
-  xsrfHeaderName: 'X-XSRF-TOKEN',
-    }
- 
-  }
-
-
-
+          "https://us-central1-kamagera-aa372.cloudfunctions.net/storeImage",
+         
+         
+         //this.file,
+         formData,
+          {
+            headers: {
+              "Access-Control-Allow-Origin": true,
+              crossorigin: true,
+            }
+          }
         )
-       .then( resp => {
-        this.imagePath = resp.imagePath,
-        this.imageUrl = resp.imageUrl
-			})
+        .then(resp => {
+          (this.imagePath = resp.imagePath), (this.imageUrl = resp.imageUrl);
+           console.log(resp.data);
+        })
         .catch(() => {
           console.log("FAILURE!!");
         });
 
       const jobData = {
-        title: this.title,
-        location: this.location,
-        clientname: this.clientname,
-        staffs: this.staffs,
+        // title: this.title,
+        // location: this.location,
+        // clientname: this.clientname,
+        // staffs: this.staffs,
         imagePath: this.imagePath,
         imageUrl: this.imageUrl,
-        jobdescription: this.jobdescription,
-        date: this.datepicker.time
+        // description: this.description,
+        // date: this.datepicker.time
       };
       this.$store.dispatch("createJob", jobData);
       this.$router.push("/admin/dashboard");
@@ -178,7 +161,7 @@ export default {
         this.title !== "" &&
         this.location !== "" &&
         this.clientname !== "" &&
-        this.jobdescription !== ""
+        this.description !== ""
       );
     }
   }

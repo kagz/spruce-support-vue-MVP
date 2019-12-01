@@ -35,7 +35,7 @@ const mutations = {
       job.title = payload.title
     }
     if (payload.description) {
-      job.description = payload.jobdescription
+      job.description = payload.description
     }
     if (payload.date) {
       job.date = payload.date
@@ -59,7 +59,7 @@ const actions = {
           jobs.push({
             id: key,
             title: obj[key].title,
-            description: obj[key].jobdescription,
+            description: obj[key].description,
             imageUrl: obj[key].imageUrl,
             imagePath: obj[key].imagePath,
             staffs: obj[key].staffs,
@@ -81,18 +81,19 @@ const actions = {
     getters
   }, payload) {
     const job = {
-      title: payload.title,
-      location: payload.location,
-      jobdescription: payload.jobdescription,
-      date: payload.date,
+      // title: payload.title,
+      // location: payload.location,
+      // description: payload.description,
+      // date: payload.date,
       imagePath: payload.imagePath,
       imageUrl: payload.imageUrl,
-      staffs: payload.staffs,
-      clientname: payload.clientname,
+      // staffs: payload.staffs,
+      // clientname: payload.clientname,
       creatorId: getters.user.id
     }
     // let imageUrl
     // let key
+
     firebase
       .database()
       .ref('jobs')
@@ -117,8 +118,8 @@ const actions = {
     if (payload.title) {
       updateObj.title = payload.title
     }
-    if (payload.jobdescription) {
-      updateObj.jobdescription = payload.jobdescription
+    if (payload.description) {
+      updateObj.description = payload.description
     }
     if (payload.date) {
       updateObj.date = payload.date

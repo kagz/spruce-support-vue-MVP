@@ -46,6 +46,7 @@ new Vue({
       projectId: 'kamagera-aa372',
       storageBucket: 'gs://kamagera-aa372.appspot.com'
     })
+    // firebase.functions().useFunctionsEmulator('http://localhost:8080')
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         // store.dispatch('clearError')

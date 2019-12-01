@@ -9,57 +9,43 @@
                 <fieldset>
                   <div class="form-group">
                     <div class="input-group">
-                      <input id="simple-input" required />
-                      <label class="control-label" for="simple-input">Client or Company Name</label>
+                      <input id="companyname" required />
+                      <label class="control-label" for="companyname">Client or Company Name</label>
                       <i class="bar"></i>
                     </div>
                   </div>
 
                   <div class="form-group">
                     <div class="input-group">
-                      <input id="simple-input" required />
-                      <label class="control-label" for="simple-input">Location</label>
+                      <input id="location" required />
+                      <label class="control-label" for="location">Location</label>
                       <i class="bar"></i>
                     </div>
                   </div>
 
                   <div class="form-group">
                     <div class="input-group">
-                      <input id="simple-input" required />
-                      <label class="control-label" for="simple-input">Email</label>
+                      <input id="email" required />
+                      <label class="control-label" for="email">Email</label>
                       <i class="bar"></i>
                     </div>
                   </div>
-
-              
                 </fieldset>
               </div>
 
               <div class="col-md-6">
-     <div class="form-group">
-                    <div class="input-group">
-                      <input id="simple-input" required />
-                      <label class="control-label" for="simple-input">Phone Number</label>
-                      <i class="bar"></i>
-                    </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input id="phone" required />
+                    <label class="control-label" for="phone">Phone Number</label>
+                    <i class="bar"></i>
                   </div>
-
-
+                </div>
 
                 <fieldset>
-               <div>
-                Attach logo
-               </div>
+                  <div>Attach logo</div>
 
-              
-
-                
-                    <vuestic-file-upload
-                      type="gallery"
-                      :file-types="'.png, .jpg, .jpeg'"
-                     
-                    />
-                
+                  <vuestic-file-upload type="gallery" :file-types="'.png, .jpg, .jpeg'" />
                 </fieldset>
               </div>
             </div>
@@ -74,19 +60,12 @@
 </template>
 
 <script>
-
 export default {
   name: "addclient",
-  computed: {
-   
-  },
+  computed: {},
   data() {
     return {
-    
-      clearableText: "",
-     
-   
-    
+      clearableText: ""
     };
   },
   methods: {
