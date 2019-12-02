@@ -64,13 +64,10 @@
                     </div>
                   </div>
 
-                  <vuestic-file-upload
-                    type="single"
-                    :file-types="'.png, .jpg, .jpeg'"
-                    id="file"
-                    ref="file"
-                    v-on:change="handleFileUpload()"
-                  />
+                  <div class="input-group" style="margin:10px">
+                    <input type="file" id="file" ref="file" v-on:change="onChangeFileUpload()" />
+                  </div>
+                  <div></div>
                 </fieldset>
               </div>
             </div>
@@ -98,61 +95,72 @@ export default {
       description: "",
       imageUrl: "",
       imagePath: "",
-      staffs: 1,
       file: "",
+      pic: "",
+      staffs: 1,
+
       datepicker: {
         time: Date.now()
       }
     };
   },
   methods: {
-    handleFileUpload() {
+    onPickFile() {
+      this.$refs.file.click();
+    },
+    onChangeFileUpload() {
       this.file = this.$refs.file.files[0];
     },
+
     async onCreateJob() {
       if (!this.formIsValid) {
         return;
       }
+
       let formData = new FormData();
       formData.append("file", this.file);
-      
+
       await axios
         .post(
           "https://us-central1-kamagera-aa372.cloudfunctions.net/storeImage",
-         
-         
-         //this.file,
-         formData,
+          formData,
           {
             headers: {
               "Access-Control-Allow-Origin": true,
-              crossorigin: true,
+              crossorigin: true
             }
           }
         )
         .then(resp => {
-          (this.imagePath = resp.imagePath), (this.imageUrl = resp.imageUrl);
-           console.log(resp.data);
+          // console.log(resp.data)
+          // (this.imagePath = resp.imagePath), (this.imageUrl = resp.imageUrl);
+          console.log("image url returned" + resp.data.imageUrl);
+          try {
+            let jobData = {
+              title: this.title,
+              location: this.location,
+              clientname: this.clientname,
+              staffs: this.staffs,
+              imagePath: resp.data.imagePath,
+              imageUrl: resp.data.imageUrl,
+              description: this.description,
+              date: this.datepicker.time
+            };
+            this.$store.dispatch("createJob", jobData);
+            this.$router.push("/admin/dashboard");
+
+            console.log(resp.imageUrl);
+          } catch (err) {
+            console.log(err);
+          }
+
+          // console.log(resp.data);
         })
+
         .catch(() => {
           console.log("FAILURE!!");
         });
-
-      const jobData = {
-        // title: this.title,
-        // location: this.location,
-        // clientname: this.clientname,
-        // staffs: this.staffs,
-        imagePath: this.imagePath,
-        imageUrl: this.imageUrl,
-        // description: this.description,
-        // date: this.datepicker.time
-      };
-      this.$store.dispatch("createJob", jobData);
-      this.$router.push("/admin/dashboard");
-    },
-
-    onFilePicked(event) {}
+    }
   },
 
   computed: {
@@ -161,7 +169,8 @@ export default {
         this.title !== "" &&
         this.location !== "" &&
         this.clientname !== "" &&
-        this.description !== ""
+        this.description !== "" &&
+        this.file !== ""
       );
     }
   }

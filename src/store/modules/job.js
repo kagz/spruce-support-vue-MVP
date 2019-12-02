@@ -81,19 +81,16 @@ const actions = {
     getters
   }, payload) {
     const job = {
-      // title: payload.title,
-      // location: payload.location,
-      // description: payload.description,
-      // date: payload.date,
+      title: payload.title,
+      location: payload.location,
+      description: payload.description,
+      date: payload.date,
       imagePath: payload.imagePath,
       imageUrl: payload.imageUrl,
-      // staffs: payload.staffs,
-      // clientname: payload.clientname,
+      staffs: payload.staffs,
+      clientname: payload.clientname,
       creatorId: getters.user.id
     }
-    // let imageUrl
-    // let key
-
     firebase
       .database()
       .ref('jobs')
