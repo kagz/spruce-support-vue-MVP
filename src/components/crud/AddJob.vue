@@ -149,7 +149,6 @@ export default {
             this.$store.dispatch("createJob", jobData);
             this.$router.push("/admin/dashboard");
 
-            console.log(resp.imageUrl);
           } catch (err) {
             console.log(err);
           }

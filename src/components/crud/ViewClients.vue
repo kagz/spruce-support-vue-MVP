@@ -7,18 +7,23 @@
             <table class="table table-striped first-td-padding">
               <thead>
                 <tr>
-                  <td>{{'tables.headings.name' | translate}}</td>
-                  <td>{{'tables.headings.email' | translate}}</td>
-                  <td>{{'tables.headings.city' | translate}}</td>
-                  <td align="right">{{'tables.headings.score' | translate}}</td>
+                  <td>Client Name</td>
+                  <td>Email</td>
+                  <td>Phone</td>
+                  <td>Location</td>
+                  <td align="right">Edit</td>
                   <td></td>
+                  <td align="right">Delete</td>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Matthew McCormick</td>
-                  <td>matthew30@mail.ol</td>
-                  <td>Vancouver</td>
+                <tr v-for="job in jobs" :key="job.id">
+                  <td>{{job.companyname}}</td>
+                  <td>{{job.email}}</td>
+                  <td>{{job.phone}}</td>
+
+                  <td>{{job.location}}</td>
+
                   <td align="right">
                     <div>
                       <a class="btn btn-with-icon btn-success btn-micro rounded-icon my-2 my-sm-0">
@@ -27,6 +32,13 @@
                     </div>
                   </td>
                   <td></td>
+                    <td align="right">
+                    <div>
+                      <a class="btn btn-with-icon btn-warning btn-micro rounded-icon my-2 my-sm-0">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                      </a>
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -38,17 +50,17 @@
 </template>
 
 <script>
-import Vue from "vue";
-
-import FieldsDef from "vuestic-components/vuestic-datatable/data/fields-definition";
-import ItemsPerPageDef from "vuestic-components/vuestic-datatable/data/items-per-page-definition";
-import QueryParams from "vuestic-components/vuestic-datatable/data/query-params";
-
 export default {
   name: "viewclients",
-  components: {},
+
   data() {
     return {};
+  },
+
+  computed: {
+    jobs() {
+      return this.$store.getters.loadedCompanys;
+    }
   }
 };
 </script>

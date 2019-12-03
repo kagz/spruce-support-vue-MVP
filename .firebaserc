@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "kamagera-aa372"
+    "default": "kamagera-aa372",
+    "hosting": "kamagera-aa372"
   }
 }

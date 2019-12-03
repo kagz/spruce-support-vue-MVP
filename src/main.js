@@ -55,5 +55,6 @@ new Vue({
       }
     })
     this.$store.dispatch('loadJobs')
+    this.$store.dispatch('loadCompanys')
   }
 })

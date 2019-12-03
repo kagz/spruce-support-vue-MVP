@@ -5,6 +5,7 @@ import VuexI18n from 'vuex-i18n' // load vuex i18n module
 import app from './modules/app'
 import user from './modules/user.js'
 import job from './modules/job.js'
+import clients from './modules/clients.js'
 import shared from './modules/shared'
 
 import * as getters from './getters'
@@ -18,7 +19,8 @@ const store = new Vuex.Store({
     app,
     job: job,
     user: user,
-    shared: shared
+    shared: shared,
+    clients: clients
   },
   state: {
 
