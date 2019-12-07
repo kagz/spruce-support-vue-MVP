@@ -2,13 +2,20 @@
   <div class="collapse-page row">
     <div class="container">
       <vuestic-widget headerText="My Posted Jobs">
+        <div class="spinner-border" v-if="loading" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+        <div v-if="error">
+          <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
+        </div>
+
         <vuestic-accordion v-for="job in jobs.slice().reverse()" :key="job.id">
           <div class="jobscard">
             <vuestic-collapse>
               <span slot="header">
                 <div class="col-sm-6 col-lg-6 col-xl-3 d-flex">
                   <div style="margin-right:15px ; color:black; justify-content: space-between">
-                    <i class="fa fa-user-md" style="color:green"></i>
+                    <i class="glyphicon glyphicon-briefcase" style="color:green"></i>
                     {{job.title}}
                   </div>
                   <!-- <div style="color:black">
@@ -22,25 +29,25 @@
                   <div class="col-md-12">
                     <div class="collapse-page__content">
                       <div class="row">
-
-  <div class="collapse-page__content__title btn-with-icon-content">
-                          <i class="fa fa-users" style="color:black; margin-right:5px"></i>
-                      {{job.staffs}}
+                        <div class="collapse-page__content__title btn-with-icon-content">
+                          <i class="fa fa-users" style="color:red; margin-right:5px"></i>
+                          {{job.staffs}}
                         </div>
-
 
                         <div
                           class="collapse-page__content__title btn-with-icon-content"
                           style="margin-left:10px"
                         >
-                          <i class="fa fa-location-arrow" style="color:red; margin-left:5px"></i>
+                          <i
+                            class="icon glyphicon glyphicon-map-marker"
+                            style="color:red; margin-left:5px"
+                          ></i>
                           {{job.location}}
                         </div>
-                      
                       </div>
 
-                      <div class="time" style="margin-bottom:10px">
-                        <i class="fas fa-calendar-check-o" style="color:red; margin-right:5px"></i>
+                      <div class="time" style="margin:15px">
+                        <i class="glyphicon glyphicon-calendar" style="color:red; margin-right:5px"></i>
                         {{job.date | date}}
                       </div>
 
@@ -52,17 +59,15 @@
                     </div>
                   </div>
                   <div class="col-sm-6 col-lg-12 col-xl-12 d-flex downthere">
-                    <!-- <button class="btn btn-primary btn-micro btn-with-icon rounded-icon">
-                      <div class=" btn-with-icon-content">
-                        <i class="fa fa-thumbs-up" ></i>
-                      </div>
-                    </button>-->
-                    <div style="margin-left:10px">
-                      <a class="btn btn-with-icon btn-dark btn-micro rounded-icon my-2 my-sm-0">
-                        <i class="fa fa-thumbs-up"></i>
+                    <div v-if="userIsAuthenticated && !userIsCreator &&!userIsRegistered"  style="margin-left:10px">
+                      <a
+                        @click="onLiking(job)"
+                        class="btn btn-with-icon btn-dark btn-micro rounded-icon my-2 my-sm-0"
+                      >
+                        <i class="fa fa-eye"></i>
                       </a>
                     </div>
-                    <div style="margin-right:10px">
+                    <div    v-if="userIsAuthenticated && userIsCreator" style="margin-right:10px">
                       <a class="btn btn-with-icon btn-success btn-micro rounded-icon my-2 my-sm-0">
                         <i class="fa fa-pencil"></i>
                       </a>
@@ -86,6 +91,50 @@ export default {
   computed: {
     jobs() {
       return this.$store.getters.loadedJobs;
+    },
+ jobo () {
+        return this.$store.getters.loadedJob(this.id)
+         
+      },
+    error() {
+      return this.$store.getters.error;
+    },
+    loading() {
+      return this.$store.getters.isLoading;
+    },
+    userIsAuthenticated() {
+      return (
+        this.$store.getters.user !== null &&
+        this.$store.getters.user !== undefined
+      );
+    },
+    userIsCreator() {
+      if (!this.userIsAuthenticated) {
+        return false;
+      }
+      //return this.$store.getters.user.id === this.job.userId;
+      console.log(this.jobo)
+    },
+    loading() {
+      return this.$store.getters.loading;
+    },
+    userIsRegistered(job) {
+      return (
+        this.$store.getters.user.registeredJobs.findIndex(id => {
+          return id === this.jobId;
+        }) >= 0
+      );
+    }
+  },
+  methods: {
+    onLiking(job) {
+      {
+        this.$store.dispatch("registerUserForJob", job.id);
+        Toast.fire({
+          type: "success",
+          title: "Job Booking  successfull"
+        });
+      }
     }
   }
 };

@@ -3,34 +3,31 @@
     <div>
       <vuestic-navbar>
         <span slot="logo">
-          <img class="logo" src="../assets/icons/vue-logo3.png.png" />
+          <img
+            class="logo"
+            src="../assets/icons/vue-logo3.png.png"
+            style="width:150px;margin-top:0px;margin-bottom:10px"
+          />
         </span>
 
-       
-
-        
-          
-         <div>
-          <a class="btn btn-with-icon rounded-icon my-2 my-sm-0" >
-          
-               <vuestic-dropdown
-      v-model="isShown"
-      position="bottom"
-    >
-      <div
-        v-for="option in options"
-        :key="option.name"
-        class="dropdown-item plain-link-item"
-      >
-        <router-link :to="{name: option.redirectTo}" class="plain-link" href="#">
-          {{option.name}}
-        </router-link>
-      </div>
-    </vuestic-dropdown>
-             <i class="ion-md-lock ion"></i>
+        <div>
+          <a class="btn btn-with-icon rounded-icon my-2 my-sm-0">
+            <vuestic-dropdown v-model="isShown" position="bottom">
+              <div
+                v-for="option in options"
+                :key="option.name"
+                class="dropdown-item plain-link-item"
+              >
+                <router-link
+                  :to="{name: option.redirectTo}"
+                  class="plain-link"
+                  href="#"
+                >{{option.name}}</router-link>
+              </div>
+            </vuestic-dropdown>
+            <i class="ion-md-lock ion"></i>
           </a>
         </div>
-      
       </vuestic-navbar>
     </div>
     <div class="container" style="padding: 20px;">
@@ -46,6 +43,18 @@
         </slide>
         <slide>
           <img src="../assets/img/landing/slide2.jpg" class="img-fluid" height="290px" width="100%" />
+        </slide>
+        <slide>
+          <img src="../assets/img/landing/slide3.jpg" class="img-fluid" height="290px" width="100%" />
+        </slide>
+        <slide>
+          <img src="../assets/img/landing/slide2.jpg" class="img-fluid" height="290px" width="100%" />
+        </slide>
+        <slide>
+          <img src="../assets/img/landing/slide2.jpg" class="img-fluid" height="290px" width="100%" />
+        </slide>
+        <slide>
+          <img src="../assets/img/landing/slide3.jpg" class="img-fluid" height="290px" width="100%" />
         </slide>
       </carousel>
     </div>
@@ -427,11 +436,10 @@ export default {
   },
   data() {
     return {
-       isShown: false,
+      isShown: false,
       name: null,
       email: null,
-      password: null,
-    
+      password: null
     };
   },
   props: {
@@ -439,15 +447,15 @@ export default {
       type: Array,
       default: () => [
         {
-          name: 'signup',
-          redirectTo: 'signup',
+          name: "signup",
+          redirectTo: "signup"
         },
         {
-          name: 'login',
-          redirectTo: 'login',
-        },
-      ],
-    },
+          name: "login",
+          redirectTo: "login"
+        }
+      ]
+    }
   },
   computed: {
     // jobs() {

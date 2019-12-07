@@ -1,7 +1,6 @@
 import * as firebase from 'firebase'
 
 const state = {
-
   loadedJobs (state) {
     return state.loadedJobs.sort((jobA, jobB) => {
       return jobA.date > jobB.date
@@ -17,7 +16,6 @@ const state = {
       })
     }
   }
-
 }
 
 const mutations = {
@@ -65,7 +63,7 @@ const actions = {
             staffs: obj[key].staffs,
             date: obj[key].date,
             location: obj[key].location,
-            creatorId: obj[key].creatorId
+            userId: obj[key].userId
           })
         }
         commit('setLoadedJobs', jobs)
@@ -89,22 +87,21 @@ const actions = {
       imageUrl: payload.imageUrl,
       staffs: payload.staffs,
       clientname: payload.clientname,
-      creatorId: getters.user.id
+      userId: getters.user.id
     }
     firebase
       .database()
       .ref('jobs')
       .push(job)
-
       .then(() => {
         commit('createJob', {
-          ...job,
-
+          ...job
         })
       })
       .catch((error) => {
         console.log(error)
       })
+
     // Reach out to firebase and store it
   },
   updateJobData ({
@@ -134,11 +131,11 @@ const actions = {
         console.log(error)
         commit('setLoading', false)
       })
-  }
+  },
 }
 
 export default {
   state,
   mutations,
-  actions,
+  actions
 }

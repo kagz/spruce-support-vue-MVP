@@ -61,7 +61,7 @@ const actions = {
             email: obj[key].email,
             companytype: obj[key].companytype,
             location: obj[key].location,
-            creatorId: obj[key].creatorId
+            userId: obj[key].userId
           })
         }
         commit('setLoadedCompanys', companys)
@@ -83,7 +83,7 @@ const actions = {
 
       email: payload.email,
       phone: payload.phone,
-      creatorId: getters.user.id
+      userId: getters.user.id
     }
     firebase
       .database()

@@ -1,7 +1,7 @@
 <template>
   <vuestic-navbar>
-    <span slot="logo">
-      <img class="logo" src="../../../assets/icons/vue-logo2.png.png"/>
+    <span slot="logo" style="height:150px;margin-top:10px;margin-bottom:10px">
+      <img class="logo" src="../../../assets/icons/vue-logo2.png.png" />
     </span>
 
     <menu-dropdown
@@ -15,7 +15,7 @@
     ></menu-dropdown>
 
     <profile-dropdown slot="profile" class="col-xs-1 nav-item">
-      <img src=""/>
+      <img src="" style="width:150px;margin-top:0px;margin-bottom:10px"/>
 
 </profile-dropdown>
   </vuestic-navbar>
@@ -81,10 +81,10 @@ export default {
               name: this.$t("View Clients"),
               link: "viewclients"
             },
-              {
-              name: this.$t("Edit My Profile"),
-              link: "myprofile"
-            },
+            //   {
+            //   name: this.$t("View My Profile"),
+            //   link: "newprofile"
+            // },
           ]
         },
       

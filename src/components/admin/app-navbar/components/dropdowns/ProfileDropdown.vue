@@ -7,6 +7,10 @@
       v-model="isShown"
       position="bottom"
     >
+
+    <div>
+      logout
+    </div>
       <div
         v-for="option in options"
         :key="option.name"
@@ -32,18 +36,22 @@ export default {
     options: {
       type: Array,
       default: () => [
-        {
-          name: 'signup',
-          redirectTo: 'signup',
+         {
+          name: 'Newprofile',
+          redirectTo: 'newprofile',
         },
         {
-          name: 'login',
+          name: 'logout',
           redirectTo: 'login',
         },
-        {
-          name: 'Log-out',
-          redirectTo: 'login',
-        },
+        // {
+        //   name: 'login',
+        //   redirectTo: 'login',
+        // },
+        // {
+        //   name: 'Log-out',
+        //   redirectTo: 'login',
+        // },
       ],
     },
   },

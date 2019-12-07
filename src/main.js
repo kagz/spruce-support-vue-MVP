@@ -11,13 +11,26 @@ import VuesticPlugin from '@/vuestic-theme/vuestic-plugin'
 import './i18n'
 import YmapPlugin from 'vue-yandex-maps'
 import VueCarousel from 'vue-carousel'
+// NOTE: workaround for VeeValidate + vuetable-2
+import Swal from 'sweetalert2'
 
 Vue.use(VueCarousel)
 Vue.use(VuesticPlugin)
 Vue.use(YmapPlugin)
 Vue.filter('date', DateFilter)
 Vue.component('app-alert', AlertCmp)
-// NOTE: workaround for VeeValidate + vuetable-2
+
+window.Swal = Swal
+
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000
+})
+
+window.Toast = Toast
+
 Vue.use(VeeValidate, { fieldsBagName: 'formFields' })
 
 router.beforeEach((to, from, next) => {
@@ -46,6 +59,7 @@ new Vue({
       projectId: 'kamagera-aa372',
       storageBucket: 'gs://kamagera-aa372.appspot.com'
     })
+
     // firebase.functions().useFunctionsEmulator('http://localhost:8080')
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -56,5 +70,6 @@ new Vue({
     })
     this.$store.dispatch('loadJobs')
     this.$store.dispatch('loadCompanys')
-  }
+  },
+
 })

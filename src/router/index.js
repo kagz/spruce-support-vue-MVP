@@ -17,16 +17,15 @@ if (process.env.NODE_ENV === 'development') {
   )
 }
 
-// const EmptyParentComponent = {
-//   template: '<router-view></router-view>',
-// }
-
 export default new Router({
+  base: process.env.BASE_URL,
   routes: [
     ...demoRoutes,
     {
       path: '*',
-      redirect: { name: 'mainhome' },
+      redirect: {
+        name: 'mainhome'
+      },
     },
     {
       path: '/',
@@ -37,17 +36,16 @@ export default new Router({
     {
       path: '/auth',
       component: AuthLayout,
-      children: [
-        {
-          name: 'login',
-          path: 'login',
-          component: lazyLoading('auth/login/Login'),
-        },
-        {
-          name: 'signup',
-          path: 'signup',
-          component: lazyLoading('auth/signup/Signup'),
-        },
+      children: [{
+        name: 'login',
+        path: 'login',
+        component: lazyLoading('auth/login/Login'),
+      },
+      {
+        name: 'signup',
+        path: 'signup',
+        component: lazyLoading('auth/signup/Signup'),
+      },
 
       ],
     },
@@ -55,56 +53,63 @@ export default new Router({
     {
       name: 'Admin',
       path: '/admin',
+      props: true,
       component: AppLayout,
-      beforeEnter: AuthGuard,
-      children: [
-        {
-          name: 'dashboard',
-          path: 'dashboard',
-          component: lazyLoading('dashboard/Dashboard'),
-          default: true,
-        },
+      // beforeEnter: AuthGuard,
+      children: [{
+        name: 'dashboard',
+        path: 'dashboard',
+        props: true,
+        component: lazyLoading('dashboard/Dashboard'),
+        default: true,
+        beforeEnter: AuthGuard,
+      },
 
-        {
-          name: 'addjob',
-          path: 'addjob',
+      {
+        name: 'addjob',
+        path: 'addjob',
 
-          component: lazyLoading('crud/AddJob'),
+        component: lazyLoading('crud/AddJob'),
 
-        },
-        {
-          name: 'addclient',
-          path: 'addclient',
-          component: lazyLoading('crud/AddClient'),
+      },
+      {
+        name: 'addclient',
+        path: 'addclient',
+        component: lazyLoading('crud/AddClient'),
 
-        },
+      },
 
-        {
-          name: 'myprofile',
-          path: 'myprofile',
-          component: lazyLoading('crud/MyProfile'),
+      {
+        name: 'newprofile',
+        path: 'newprofile',
+        component: lazyLoading('crud/NewProfile'),
 
-        },
-        {
-          name: 'viewclients',
-          path: 'viewclients',
+      },
+      {
+        name: 'viewclients',
+        path: 'viewclients',
 
-          component: lazyLoading('crud/ViewClients'),
+        component: lazyLoading('crud/ViewClients'),
 
-        },
+      },
 
-        {
-          name: 'viewjobs',
-          path: 'viewjobs',
-          component: lazyLoading('crud/ViewJobs'),
+      {
+        name: 'viewjobs',
+        path: 'viewjobs',
+        component: lazyLoading('crud/ViewJobs'),
 
-        },
-
-        {
-          name: 'viewstaffs',
-          path: 'viewstaffs',
-          component: lazyLoading('crud/ViewStaffs'),
-        },
+      },
+      {
+        path: 'job/:id',
+        name: 'job',
+        props: true,
+        component: lazyLoading('crud/Job'),
+      },
+      {
+        name: 'viewstaffs',
+        path: 'viewstaffs',
+        component: lazyLoading('crud/ViewStaffs'),
+      },
 
       ]
     }

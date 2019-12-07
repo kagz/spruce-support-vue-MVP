@@ -37,6 +37,7 @@
 		"leaflet-map": "^0.2.1",
 		"medium-editor": "^5.23.3",
 		"normalize.css": "8.0.0",
+		"sweetalert2": "^9.4.3",
 		"v-tooltip": "^2.0.0-rc.30",
 		"vee-validate": "2.0.9",
 		"vue": "^2.5.17",

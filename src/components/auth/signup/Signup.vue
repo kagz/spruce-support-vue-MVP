@@ -9,13 +9,13 @@
         <h1 class="logo-name">Spruce</h1>
       </div>
       <form @submit.prevent="onSignup">
-        <div class="form-group">
+        <!-- <div class="form-group">
           <div class="input-group">
             <input type="text" id="name" required="required" v-model="name" />
             <label class="control-label" for="name">Full Name</label>
             <i class="bar"></i>
           </div>
-        </div>
+        </div> -->
 
         <div class="form-group">
           <div class="input-group">
@@ -49,7 +49,7 @@
         >
           <button class="btn btn-dark" type="submit" :disabled="loading" :loading="loading">
             Sign up
-            <div class="spinner-border" role="status">
+            <div class="spinner-border" v-if="loading" role="status">
               <span class="sr-only">Loading...</span>
             </div>
           </button>
@@ -86,7 +86,7 @@ export default {
       return this.$store.getters.error;
     },
     loading() {
-      return this.$store.getters.loading;
+      return this.$store.getters.isLoading;
     }
   },
   watch: {
@@ -101,7 +101,7 @@ export default {
       this.$store.dispatch("signUserUp", {
         email: this.email,
         password: this.password,
-        name: this.name
+        // name: this.name
       });
     },
     onDismissed() {

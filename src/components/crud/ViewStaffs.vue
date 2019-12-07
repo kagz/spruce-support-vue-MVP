@@ -3,6 +3,13 @@
     <div class="row">
       <div class="col-xs-12 col-md-12">
         <vuestic-widget headerText="Our Staffs">
+          <div class="spinner-border" v-if="loading" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div v-if="error">
+            <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
+          </div>
+
           <div class="table-responsive">
             <table class="table table-striped first-td-padding">
               <thead>
@@ -46,7 +53,14 @@ import QueryParams from "vuestic-components/vuestic-datatable/data/query-params"
 
 export default {
   name: "viewstaffs",
-  components: {},
+  components: {
+    error() {
+      return this.$store.getters.error;
+    },
+    loading() {
+      return this.$store.getters.isLoading;
+    }
+  },
   data() {
     return {};
   }

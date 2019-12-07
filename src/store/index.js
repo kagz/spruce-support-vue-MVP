@@ -7,6 +7,7 @@ import user from './modules/user.js'
 import job from './modules/job.js'
 import clients from './modules/clients.js'
 import shared from './modules/shared'
+import profile from './modules/profile'
 
 import * as getters from './getters'
 
@@ -20,7 +21,8 @@ const store = new Vuex.Store({
     job: job,
     user: user,
     shared: shared,
-    clients: clients
+    clients: clients,
+    profile: profile
   },
   state: {
 

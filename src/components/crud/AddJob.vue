@@ -3,6 +3,13 @@
     <div class="container">
       <div class="col-md-12">
         <vuestic-widget headerText="Create a Job">
+          <div class="spinner-border" v-if="loading" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div v-if="error">
+            <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
+          </div>
+
           <form @submit.prevent="onCreateJob">
             <div class="row">
               <div class="col-md-6">
@@ -147,8 +154,11 @@ export default {
               date: this.datepicker.time
             };
             this.$store.dispatch("createJob", jobData);
+             Toast.fire({
+            type: 'success',
+            title: 'new job posted successfully'
+          })
             this.$router.push("/admin/dashboard");
-
           } catch (err) {
             console.log(err);
           }
@@ -171,6 +181,13 @@ export default {
         this.description !== "" &&
         this.file !== ""
       );
+    },
+
+    error() {
+      return this.$store.getters.error;
+    },
+    loading() {
+      return this.$store.getters.isLoading;
     }
   }
 };

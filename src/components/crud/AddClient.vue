@@ -3,6 +3,13 @@
     <div class="container">
       <div class="col-md-12">
         <vuestic-widget headerText="Add a Client or Company">
+          <div class="spinner-border" v-if="loading" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div v-if="error">
+            <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
+          </div>
+
           <form @submit.prevent="onCreateCompany">
             <div class="row">
               <div class="col-md-6">
@@ -73,6 +80,13 @@ export default {
         this.phone !== "" &&
         this.companytype !== ""
       );
+    },
+
+    error() {
+      return this.$store.getters.error;
+    },
+    loading() {
+      return this.$store.getters.isLoading;
     }
   },
   data() {
@@ -99,6 +113,10 @@ export default {
           companytype: this.companytype
         };
         this.$store.dispatch("createCompany", clientData);
+         Toast.fire({
+            type: 'success',
+            title: 'client created  successfully'
+          })
         this.$router.push("/admin/dashboard");
       } catch (err) {
         console.log(err);

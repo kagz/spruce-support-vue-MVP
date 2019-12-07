@@ -32,7 +32,10 @@ export default {
   },
 
 
+
 computed: {
+
+
       profile () {
         return this.$store.getters.user
       },

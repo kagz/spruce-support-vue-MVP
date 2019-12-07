@@ -43,7 +43,7 @@
         >
           <button class="btn btn-dark" type="submit">
             Login
-            <div class="spinner-border" role="status">
+            <div class="spinner-border" v-if="loading" role="status">
               <span class="sr-only">Loading...</span>
             </div>
           </button>
@@ -64,6 +64,9 @@ export default {
       password: null
     };
   },
+    created () {
+      this.onLogout()
+    },
   computed: {
     user() {
       return this.$store.getters.user;
@@ -73,7 +76,7 @@ export default {
       return this.$store.getters.error;
     },
     loading() {
-      return this.$store.getters.loading;
+      return this.$store.getters.isLoading;
     }
   },
   watch: {
@@ -92,7 +95,10 @@ export default {
     },
     onDismissed() {
       this.$store.dispatch("clearError");
-    }
+    },
+       onLogout () {
+        this.$store.dispatch('logout')
+      }
   }
 };
 </script>
