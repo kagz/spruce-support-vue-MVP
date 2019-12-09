@@ -21,13 +21,13 @@ const state = {
       lighterGray: '#ddd'
     }
   },
-  isLoading: true
+  // isLoading: true
 }
 
 const mutations = {
-  setLoading (state, isLoading) {
-    state.isLoading = isLoading
-  },
+  // setLoading (state, isLoading) {
+  //   state.isLoading = isLoading
+  // },
   'TOGGLE_WITHOUT_ANIMATION' (state, value) {
     state.sidebar.withoutAnimation = value
   },

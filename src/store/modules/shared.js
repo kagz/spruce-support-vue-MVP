@@ -1,6 +1,6 @@
 export default {
   state: {
-    // isLoading: false,
+    isLoading: false,
     error: null
   },
   mutations: {
@@ -21,12 +21,12 @@ export default {
       commit('clearError')
     }
   },
-  // getters: {
-  //   isLoading (state) {
-  //     return state.loading
-  //   },
-  //   error (state) {
-  //     return state.error
-  //   }
-  // }
+  getters: {
+    isLoading (state) {
+      return state.loading
+    },
+    error (state) {
+      return state.error
+    }
+  }
 }

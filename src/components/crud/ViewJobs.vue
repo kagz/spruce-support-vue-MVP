@@ -24,7 +24,50 @@
                   </div>-->
                 </div>
               </span>
-              <div slot="body">
+              <div slot="body" style="padding:10px">
+                <div class="container col-md-12 d-flex flex-column align-items-center">
+                  <div class="vuestic-profile-card d-flex flex-column align-items-center">
+                    <div class="photo">
+                      <img :src="job.imageUrl" />
+                    </div>
+                    <h5 class="name">required {{job.staffs}} staffs</h5>
+                    <span class="location">
+                      <span style="color:red" class="icon glyphicon glyphicon-map-marker"></span>
+                      {{job.location}}
+                    </span>
+
+                    <div>
+                      <div
+                        style=" font-size: 1.375rem;
+                           font-weight: bold;"
+                      >{{ job.description}}</div>
+                    </div>
+
+                    <div class="social">
+                      <div class="row" style="margin-right:15px">
+                        <i
+                          class="icon glyphicon glyphicon-calendar"
+                          style="color:red; margin-right:5px"
+                        ></i>
+                      <div class="time">
+                          {{job.date | date}}
+                      </div>
+                      </div>
+
+                      <!-- <div class="row" style="margin-right:15px">
+                        <i
+                          class="icon glyphicon glyphicon-user"
+                          style="color:red; margin-right:5px"
+                        ></i>
+                        <div>
+                          {{job.staffs}}
+                        </div>
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 
                 <div class="row">
                   <div class="col-md-12">
                     <div class="collapse-page__content">
@@ -51,10 +94,9 @@
                         {{job.date | date}}
                       </div>
 
-                      <!-- <h4 class="collapse-page__content__title">{{job.time}}</h4> -->
                       <div
                         style=" font-size: 1.375rem;
-      font-weight: bold;"
+                           font-weight: bold;"
                       >{{ job.description}} .</div>
                     </div>
                   </div>
@@ -74,6 +116,7 @@
                     </div>
                   </div>
                 </div>
+                -->
               </div>
             </vuestic-collapse>
           </div>
@@ -92,10 +135,9 @@ export default {
     jobs() {
       return this.$store.getters.loadedJobs;
     },
- jobo () {
-        return this.$store.getters.loadedJob(this.id)
-         
-      },
+    jobo() {
+      return this.$store.getters.loadedJob(this.id);
+    },
     error() {
       return this.$store.getters.error;
     },
@@ -113,7 +155,7 @@ export default {
         return false;
       }
       //return this.$store.getters.user.id === this.job.userId;
-      console.log(this.jobo)
+      console.log(this.jobo);
     },
     loading() {
       return this.$store.getters.loading;
@@ -157,6 +199,61 @@ export default {
     &__title {
       font-size: 1.375rem;
       font-weight: bold;
+    }
+  }
+}
+
+$vuestic-profile-card-width: 12.6875rem;
+$vuestic-profile-card-photo-diameter: 9.375rem;
+
+.vuestic-profile-card {
+  width: $vuestic-profile-card-width;
+  .photo {
+    height: $vuestic-profile-card-photo-diameter;
+    width: $vuestic-profile-card-photo-diameter;
+    border-radius: 50%;
+    background-color: $lighter-gray;
+    overflow: hidden;
+
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+  .name {
+    margin-top: 1.325rem;
+    margin-bottom: 0;
+  }
+  .location {
+    margin-top: 0.8125rem;
+    .icon {
+      color: $lighter-gray;
+      font-size: $font-size-larger;
+    }
+    &:hover {
+      cursor: pointer;
+      .icon {
+        color: red;
+      }
+    }
+  }
+  .social {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 1rem;
+    margin-top: 1.25rem;
+    width: 100%;
+    border-top: solid 0.125rem $light-gray;
+    .icon {
+      color: $gray;
+      text-decoration: none;
+      font-size: $font-size-h4;
+      margin-right: 0.4375rem;
+      margin-left: 0.4375rem;
+      &:hover {
+        cursor: pointer;
+        color: darken($gray, 50%);
+      }
     }
   }
 }

@@ -14,18 +14,25 @@
             <table class="table table-striped first-td-padding">
               <thead>
                 <tr>
-                  <td>{{'tables.headings.name' | translate}}</td>
-                  <td>{{'tables.headings.email' | translate}}</td>
-                  <td>{{'tables.headings.city' | translate}}</td>
-                  <td align="right">{{'tables.headings.score' | translate}}</td>
+                  <td> full name</td>
+                  <td>email</td>
+                  <td>phone</td>
+                   <td>passport</td>
+                  <td align="right">worked hours</td>
+                   <td align="right">edit staff</td>
+                 
                   <td></td>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>Matthew McCormick</td>
-                  <td>matthew30@mail.ol</td>
-                  <td>Vancouver</td>
+                  <td>sammy kamonjo</td>
+                  <td>kamonjo@sprucesupport.com</td>
+                  <td>0700123456</td>
+                   <td>a123456z</td>
+                    <td align="right">
+                  48hrs
+                  </td>
                   <td align="right">
                     <div>
                       <a class="btn btn-with-icon btn-success btn-micro rounded-icon my-2 my-sm-0">
