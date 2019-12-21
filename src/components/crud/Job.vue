@@ -3,13 +3,13 @@
        <vuestic-card :image="jobo.imageUrl" theme="dark">
             <p slot="title">
                 {{jobo.title}}
-           
+
                 </p>
             {{jobo.description}}
-          
+
                <p class="pt-3 mb-0">
               <button class="btn btn-primary btn-micro" >Pick job</button>
-          
+
             </p>
           </vuestic-card>
 
@@ -23,49 +23,48 @@
 <script>
 
 export default {
-    props: ['id'],
-  name: "job",
- // components: { VuesticCard },
-  data() {
+  props: ['id'],
+  name: 'job',
+  // components: { VuesticCard },
+  data () {
     return {
-   
+
     //  isShown: false
-    };
+    }
   },
-   computed: {
-       jobo () {
-        return this.$store.getters.loadedJob(this.id)
-         
-      },
-     
-      userIsAuthenticated () {
-        return this.$store.getters.user !== null && this.$store.getters.user !== undefined
-      },
-      userIsCreator () {
-        if (!this.userIsAuthenticated) {
-          return false
-        }
-        return this.$store.getters.user.id === this.job.userId
-      },
-      loading () {
-        return this.$store.getters.loading
-      },
-       userIsRegistered () {
-        return this.$store.getters.user.registeredJobs.findIndex(id => {
-          return id === this.id
-        }) >= 0
-      }
-    
+  computed: {
+    jobo () {
+      return this.$store.getters.loadedJob(this.id)
     },
-  methods: {
-  onAgree () {
-   
-        {
-          this.$store.dispatch('registerUserForJob', this.id)
-        }
+
+    userIsAuthenticated () {
+      return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+    },
+    userIsCreator () {
+      if (!this.userIsAuthenticated) {
+        return false
       }
+      return this.$store.getters.user.id === this.job.userId
+    },
+    loading () {
+      return this.$store.getters.loading
+    },
+    userIsRegistered () {
+      return this.$store.getters.user.registeredJobs.findIndex(id => {
+        return id === this.id
+      }) >= 0
+    }
+
+  },
+  methods: {
+    onAgree () {
+      // eslint-disable-next-line no-lone-blocks
+      {
+        this.$store.dispatch('registerUserForJob', this.id)
+      }
+    }
   }
-};
+}
 </script>
 
 <style lang="scss">

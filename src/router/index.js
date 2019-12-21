@@ -4,7 +4,8 @@ import AppLayout from '../components/admin/AppLayout'
 import AuthLayout from '../components/auth/AuthLayout'
 import MainHome from '../components/MainHome'
 import lazyLoading from './lazyLoading'
-import AuthGuard from '../router/auth-guard'
+import { fb } from '../firebase'
+
 Vue.use(Router)
 
 const demoRoutes = []
@@ -17,7 +18,7 @@ if (process.env.NODE_ENV === 'development') {
   )
 }
 
-export default new Router({
+const router = new Router({
   base: process.env.BASE_URL,
   routes: [
     ...demoRoutes,
@@ -56,13 +57,14 @@ export default new Router({
       props: true,
       component: AppLayout,
       // beforeEnter: AuthGuard,
+      meta: { requiresAuth: true },
       children: [{
         name: 'dashboard',
         path: 'dashboard',
         props: true,
         component: lazyLoading('dashboard/Dashboard'),
         default: true,
-        beforeEnter: AuthGuard,
+      // beforeEnter: AuthGuard,
       },
 
       {
@@ -117,3 +119,18 @@ export default new Router({
   mode: 'history'
 
 })
+
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
+  const currentUser = fb.auth().currentUser
+
+  if (requiresAuth && !currentUser) {
+    next('/')
+  } else if (requiresAuth && currentUser) {
+    next()
+  } else {
+    next()
+  }
+})
+
+export default router

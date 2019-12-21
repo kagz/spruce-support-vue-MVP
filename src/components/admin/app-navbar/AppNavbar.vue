@@ -15,7 +15,7 @@
     ></menu-dropdown>
 
     <profile-dropdown slot="profile" class="col-xs-1 nav-item">
-      <img src="" style="width:150px;margin-top:0px;margin-bottom:10px"/>
+      <img :src="profile.imageUrl" />
 
 </profile-dropdown>
   </vuestic-navbar>
@@ -30,7 +30,7 @@ import HeaderSelector from './components/HeaderSelector'
 import ProfileDropdown from './components/dropdowns/ProfileDropdown'
 import MenuDropdown from './components/dropdowns/MenuDropdown'
 import SidebarLink from '../app-sidebar/components/SidebarLink'
-
+import { fb, db } from '../../../firebase'
 export default {
   name: 'app-navbar',
 
@@ -42,52 +42,65 @@ export default {
     MenuDropdown,
     SidebarLink
   },
+
+  firestore () {
+    const user = fb.auth().currentUser
+    return {
+      profile: db.collection('profiles').doc(user.uid),
+    }
+  },
   data () {
     return {
+
+      profile: {
+        imageUrl: null,
+
+      },
+
       pages: [
-        
+
         {
-          name: this.$t("All Jobs"),
-          logo: "vuestic-icon-tables",
-          link: "viewjobs",
-         
+          name: this.$t('All Jobs'),
+          logo: 'vuestic-icon-tables',
+          link: 'viewjobs',
+
         },
         {
-          name: this.$t("Create New"),
-          logo: "vuestic-icon-statistics",
+          name: this.$t('Create New'),
+          logo: 'vuestic-icon-statistics',
           options: [
             {
-              name: this.$t("Add Jobs"),
-              link: "addjob"
+              name: this.$t('Add Jobs'),
+              link: 'addjob'
             },
-            
-             {
-              name: this.$t("Add Client"),
-              link: "addclient"
+
+            {
+              name: this.$t('Add Client'),
+              link: 'addclient'
             }
           ]
         },
         {
-          name: this.$t("Views"),
-          logo: "vuestic-icon-forms",
+          name: this.$t('Views'),
+          logo: 'vuestic-icon-forms',
           options: [
-           
+
             {
-              name: this.$t("View Staffs"),
-              link: "viewstaffs"
+              name: this.$t('View Staffs'),
+              link: 'viewstaffs'
             },
-          
+
             {
-              name: this.$t("View Clients"),
-              link: "viewclients"
+              name: this.$t('View Clients'),
+              link: 'viewclients'
             },
-            //   {
-            //   name: this.$t("View My Profile"),
-            //   link: "newprofile"
+            // {
+            //   name: this.$t('View My Profile'),
+            //   link: 'newprofile'
             // },
           ]
         },
-      
+
       ]
     }
   }

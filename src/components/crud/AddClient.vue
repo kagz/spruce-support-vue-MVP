@@ -70,38 +70,38 @@
 
 <script>
 export default {
-  name: "addclient",
+  name: 'addclient',
   computed: {
-    formIsValid() {
+    formIsValid () {
       return (
-        this.companyname !== "" &&
-        this.location !== "" &&
-        this.email !== "" &&
-        this.phone !== "" &&
-        this.companytype !== ""
-      );
+        this.companyname !== '' &&
+        this.location !== '' &&
+        this.email !== '' &&
+        this.phone !== '' &&
+        this.companytype !== ''
+      )
     },
 
-    error() {
-      return this.$store.getters.error;
+    error () {
+      return this.$store.getters.error
     },
-    loading() {
-      return this.$store.getters.isLoading;
+    loading () {
+      return this.$store.getters.isLoading
     }
   },
-  data() {
+  data () {
     return {
-      companyname: "",
-      location: "",
-      email: "",
-      phone: "",
-      companytype: ""
-    };
+      companyname: '',
+      location: '',
+      email: '',
+      phone: '',
+      companytype: ''
+    }
   },
   methods: {
-    async onCreateCompany() {
+    async onCreateCompany () {
       if (!this.formIsValid) {
-        return;
+        return
       }
       try {
         let clientData = {
@@ -111,18 +111,20 @@ export default {
           phone: this.phone,
 
           companytype: this.companytype
-        };
-        this.$store.dispatch("createCompany", clientData);
-         Toast.fire({
-            type: 'success',
-            title: 'client created  successfully'
-          })
-        this.$router.push("/admin/dashboard");
+        }
+        this.$firestore.createdcompany.add(clientData)
+
+        // eslint-disable-next-line no-undef
+        Toast.fire({
+          type: 'success',
+          title: 'client created  successfully'
+        })
+        this.$router.push('/admin/dashboard')
       } catch (err) {
-        console.log(err);
+        console.log(err)
       }
     }
   },
-  created() {}
-};
+  created () {}
+}
 </script>

@@ -1,22 +1,21 @@
 <template>
   <div class="signup">
     <div>
-      <div v-if="error">
+      <!-- <div v-if="error">
         <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
-      </div>
+      </div> -->
 
       <div>
         <h1 class="logo-name">Spruce</h1>
       </div>
       <form @submit.prevent="onSignup">
-        <!-- <div class="form-group">
+            <div class="form-group">
           <div class="input-group">
-            <input type="text" id="name" required="required" v-model="name" />
+            <input name="name" id="name" v-model="name" type="name" required />
             <label class="control-label" for="name">Full Name</label>
             <i class="bar"></i>
           </div>
-        </div> -->
-
+        </div>
         <div class="form-group">
           <div class="input-group">
             <input name="email" id="email" v-model="email" type="email" required />
@@ -31,28 +30,11 @@
             <i class="bar"></i>
           </div>
         </div>
-        <div class="form-group">
-          <div class="input-group">
-            <input
-              name="confirmPassword"
-              id="confirmPassword"
-              v-model="confirmPassword"
-              type="password"
-              :rules="[comparePasswords]"
-            />
-            <label class="control-label" for="password">confirm password</label>
-            <i class="bar"></i>
-          </div>
-        </div>
+
         <div
           class="d-flex flex-column flex-lg-row align-items-center justify-content-between down-container"
         >
-          <button class="btn btn-dark" type="submit" :disabled="loading" :loading="loading">
-            Sign up
-            <div class="spinner-border" v-if="loading" role="status">
-              <span class="sr-only">Loading...</span>
-            </div>
-          </button>
+          <button class="btn btn-dark" type="submit">Sign up</button>
           <router-link class="link" :to="{name: 'login'}">Has an account?</router-link>
         </div>
       </form>
@@ -61,54 +43,56 @@
 </template>
 
 <script>
+import { fb, db } from '../../../firebase'
 export default {
-  name: "signup",
-  data() {
+  name: 'signup',
+  data () {
     return {
       message: null,
       name: null,
       email: null,
-      password: null,
-      confirmPassword: null
-    };
+      password: null
+    }
   },
 
-  computed: {
-    comparePasswords() {
-      return this.password !== this.confirmPassword
-        ? "Passwords do not match"
-        : "";
-    },
-    user() {
-      return this.$store.getters.user;
-    },
-    error() {
-      return this.$store.getters.error;
-    },
-    loading() {
-      return this.$store.getters.isLoading;
-    }
+  created () {
+    fb.auth().signOut()
   },
-  watch: {
-    user(value) {
-      if (value !== null && value !== undefined) {
-        this.$router.push("/admin/dashboard");
-      }
-    }
-  },
+
   methods: {
-    onSignup() {
-      this.$store.dispatch("signUserUp", {
-        email: this.email,
-        password: this.password,
-        // name: this.name
-      });
-    },
-    onDismissed() {
-      this.$store.dispatch("clearError");
+    onSignup () {
+      fb.auth()
+        .createUserWithEmailAndPassword(this.email, this.password)
+        .then(user => {
+          db.collection('profiles')
+            .doc(user.user.uid)
+            .set({
+              name: this.name
+            })
+            .then(() => {
+              console.log('Document successfully written!')
+            })
+            .catch(error => {
+              console.error('Error writing document: ', error)
+            })
+
+          this.$router.replace('/admin/dashbord')
+        })
+        .catch(error => {
+          // Handle Errors here.
+          var errorCode = error.code
+          var errorMessage = error.message
+          // eslint-disable-next-line eqeqeq
+          if (errorCode == 'auth/weak-password') {
+            alert('The password is too weak.')
+          } else {
+            alert(errorMessage)
+          }
+          console.log(error)
+        })
     }
   }
-};
+}
 </script>
 
 <style lang="scss">

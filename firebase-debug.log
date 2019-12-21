@@ -1,0 +1,46 @@
+[debug] [2019-12-21T01:40:39.668Z] ----------------------------------------------------------------------
+[debug] [2019-12-21T01:40:39.674Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Kemosabe\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2019-12-21T01:40:39.674Z] CLI Version:   7.6.2
+[debug] [2019-12-21T01:40:39.674Z] Platform:      win32
+[debug] [2019-12-21T01:40:39.674Z] Node Version:  v10.15.0
+[debug] [2019-12-21T01:40:39.676Z] Time:          Sat Dec 21 2019 04:40:39 GMT+0300 (East Africa Time)
+[debug] [2019-12-21T01:40:39.677Z] ----------------------------------------------------------------------
+[debug] [2019-12-21T01:40:39.677Z] 
+[debug] [2019-12-21T01:40:39.703Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-12-21T01:40:39.718Z] > authorizing via signed-in user
+[debug] [2019-12-21T01:40:39.719Z] [iam] checking project kamagera-aa372 for permissions ["firebase.projects.get","firebasedatabase.instances.update","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2019-12-21T01:40:39.723Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-12-21T01:40:39.724Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-12-21T01:40:40.241Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-21T01:40:40.287Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/kamagera-aa372:testIamPermissions  
+
+[debug] [2019-12-21T01:40:42.232Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-21T01:40:42.235Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/kamagera-aa372  
+ 
+[debug] [2019-12-21T01:40:42.931Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'kamagera-aa372'...
+[info] 
+[info] i  deploying database, storage, hosting
+[info] i  database: checking rules syntax...
+[debug] [2019-12-21T01:40:42.953Z] >>> HTTP REQUEST PUT https://kamagera-aa372.firebaseio.com/.settings/rules.json?dryRun=true  
+ {
+  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
+  "rules": {
+    ".read": true,
+    ".write": true
+  }
+}
+[debug] [2019-12-21T01:40:44.218Z] <<< HTTP RESPONSE 200
+[info] +  database: rules syntax for database kamagera-aa372 is valid
+[debug] [2019-12-21T01:40:44.221Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/kamagera-aa372  
+ 
+[debug] [2019-12-21T01:40:46.409Z] <<< HTTP RESPONSE 200
+[info] i  storage: checking storage.rules for compilation errors...
+[debug] [2019-12-21T01:40:46.414Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/kamagera-aa372:test  
+
+[debug] [2019-12-21T01:40:47.638Z] <<< HTTP RESPONSE 200
+[info] +  storage: rules file storage.rules compiled successfully
+[debug] [2019-12-21T01:40:47.642Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/kamagera-aa372/versions  
+

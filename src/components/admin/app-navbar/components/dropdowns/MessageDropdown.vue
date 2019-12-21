@@ -30,7 +30,7 @@ export default {
       default: () => [
         {
           name: 'new',
-          details: { name: 'Oleg M' },
+          details: { name: 'Dembele M' },
         },
         {
           name: 'new',

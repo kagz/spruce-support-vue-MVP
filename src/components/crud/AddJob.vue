@@ -89,51 +89,57 @@
 </template>
 
 <script>
-import axios from "axios";
-
+import axios from 'axios'
+import { db } from '../../firebase'
 export default {
-  name: "addjob",
+  name: 'addjob',
 
-  data() {
+  data () {
     return {
-      title: "",
-      location: "",
-      clientname: "",
-      description: "",
-      imageUrl: "",
-      imagePath: "",
-      file: "",
-      pic: "",
+      title: '',
+      location: '',
+      clientname: '',
+      description: '',
+      imageUrl: '',
+      imagePath: '',
+      file: '',
+      pic: '',
       staffs: 1,
 
       datepicker: {
         time: Date.now()
       }
-    };
+    }
+  },
+
+  firestore () {
+    return {
+      createdjobs: db.collection('createdjobs'),
+    }
   },
   methods: {
-    onPickFile() {
-      this.$refs.file.click();
+    onPickFile () {
+      this.$refs.file.click()
     },
-    onChangeFileUpload() {
-      this.file = this.$refs.file.files[0];
+    onChangeFileUpload () {
+      this.file = this.$refs.file.files[0]
     },
 
-    async onCreateJob() {
+    async onCreateJob () {
       if (!this.formIsValid) {
-        return;
+        return
       }
 
-      let formData = new FormData();
-      formData.append("file", this.file);
+      let formData = new FormData()
+      formData.append('file', this.file)
 
       await axios
         .post(
-          "https://us-central1-kamagera-aa372.cloudfunctions.net/storeImage",
+          'https://us-central1-kamagera-aa372.cloudfunctions.net/storeImage',
           formData,
           {
             headers: {
-              "Access-Control-Allow-Origin": true,
+              'Access-Control-Allow-Origin': true,
               crossorigin: true
             }
           }
@@ -141,7 +147,7 @@ export default {
         .then(resp => {
           // console.log(resp.data)
           // (this.imagePath = resp.imagePath), (this.imageUrl = resp.imageUrl);
-          console.log("image url returned" + resp.data.imageUrl);
+          console.log('image url returned' + resp.data.imageUrl)
           try {
             let jobData = {
               title: this.title,
@@ -152,43 +158,43 @@ export default {
               imageUrl: resp.data.imageUrl,
               description: this.description,
               date: this.datepicker.time
-            };
-            this.$store.dispatch("createJob", jobData);
-             Toast.fire({
-            type: 'success',
-            title: 'new job posted successfully'
-          })
-            this.$router.push("/admin/dashboard");
-          } catch (err) {
-            console.log(err);
-          }
+            }
+            this.$firestore.createdjobs.add(jobData)
 
-          // console.log(resp.data);
+            // eslint-disable-next-line no-undef
+            Toast.fire({
+              type: 'success',
+              title: 'new job posted successfully'
+            })
+            this.$router.push('/admin/dashboard')
+          } catch (err) {
+            console.log(err)
+          }
         })
 
         .catch(() => {
-          console.log("FAILURE!!");
-        });
+          console.log('FAILURE!!')
+        })
     }
   },
 
   computed: {
-    formIsValid() {
+    formIsValid () {
       return (
-        this.title !== "" &&
-        this.location !== "" &&
-        this.clientname !== "" &&
-        this.description !== "" &&
-        this.file !== ""
-      );
+        this.title !== '' &&
+        this.location !== '' &&
+        this.clientname !== '' &&
+        this.description !== '' &&
+        this.file !== ''
+      )
     },
 
-    error() {
-      return this.$store.getters.error;
+    error () {
+      return this.$store.getters.error
     },
-    loading() {
-      return this.$store.getters.isLoading;
+    loading () {
+      return this.$store.getters.isLoading
     }
   }
-};
+}
 </script>

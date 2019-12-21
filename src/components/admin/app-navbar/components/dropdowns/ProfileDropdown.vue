@@ -8,9 +8,6 @@
       position="bottom"
     >
 
-    <div>
-      logout
-    </div>
       <div
         v-for="option in options"
         :key="option.name"
@@ -36,22 +33,18 @@ export default {
     options: {
       type: Array,
       default: () => [
-         {
-          name: 'Newprofile',
+        {
+          name: 'Profile',
           redirectTo: 'newprofile',
         },
         {
           name: 'logout',
           redirectTo: 'login',
         },
-    
+
       ],
     },
   },
-
-
-
-
 
 }
 </script>
@@ -68,7 +61,7 @@ export default {
     width: 50px;
     height: 50px;
    background-color: white;
-    
+
     border-radius: 50%;
     border: 2px solid $lighter-gray;
     overflow: hidden;

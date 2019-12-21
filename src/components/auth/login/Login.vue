@@ -55,52 +55,63 @@
 </template>
 
 <script>
+import { fb } from '../../../firebase'
 export default {
-  name: "login",
-  data() {
+  name: 'login',
+  data () {
     return {
       name: null,
       email: null,
       password: null
-    };
+    }
   },
-    created () {
-      this.onLogout()
-    },
+
+  created () {
+    fb.auth().signOut()
+  },
+
   computed: {
-    user() {
-      return this.$store.getters.user;
+    user () {
+      return this.$store.getters.user
     },
 
-    error() {
-      return this.$store.getters.error;
+    error () {
+      return this.$store.getters.error
     },
-    loading() {
-      return this.$store.getters.isLoading;
+    loading () {
+      return this.$store.getters.isLoading
     }
   },
   watch: {
-    user(value) {
+    user (value) {
       if (value !== null && value !== undefined) {
-        this.$router.push("/admin/dashboard");
+        this.$router.push('/admin/dashboard')
       }
     }
   },
   methods: {
-    onSignin() {
-      this.$store.dispatch("signUserIn", {
-        email: this.email,
-        password: this.password
-      });
+    onSignin () {
+      fb.auth()
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then((msee) => {
+          this.$router.replace('/admin/dashboard')
+          console.log(msee)
+        })
+        .catch(error => {
+          // Handle Errors here.
+          var errorCode = error.code
+          var errorMessage = error.message
+          if (errorCode === 'auth/wrong-password') {
+            alert('Wrong password.')
+          } else {
+            alert(errorMessage)
+          }
+          console.log(error)
+        })
     },
-    onDismissed() {
-      this.$store.dispatch("clearError");
-    },
-       onLogout () {
-        this.$store.dispatch('logout')
-      }
+
   }
-};
+}
 </script>
 
 <style lang="scss">

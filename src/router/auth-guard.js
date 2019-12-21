@@ -1,9 +1,14 @@
-import store from '../store/index'
+import { fb } from '../firebase'
 
 export default (to, from, next) => {
-  if (store.getters.user) {
+  const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
+  const currentUser = fb.auth().currentUser
+
+  if (requiresAuth && !currentUser) {
+    next('/auth/login')
+  } else if (requiresAuth && currentUser) {
     next()
   } else {
-    next('/auth/login')
+    next()
   }
 }

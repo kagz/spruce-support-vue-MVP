@@ -25,12 +25,12 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="job in jobs" :key="job.id">
-                  <td>{{job.companyname}}</td>
-                  <td>{{job.email}}</td>
-                  <td>{{job.phone}}</td>
+                <tr v-for="company in companys" :key="company.id">
+                  <td>{{company.companyname}}</td>
+                  <td>{{company.email}}</td>
+                  <td>{{company.phone}}</td>
 
-                  <td>{{job.location}}</td>
+                  <td>{{company.location}}</td>
 
                   <td align="right">
                     <div>
@@ -58,26 +58,30 @@
 </template>
 
 <script>
+import { db } from '../../firebase'
 export default {
-  name: "viewclients",
+  name: 'viewclients',
 
-  data() {
-    return {};
+  data () {
+    return {}
+  },
+
+  firestore () {
+    return {
+      companys: db.collection('createdcompany'),
+    }
   },
 
   computed: {
-    jobs() {
-      return this.$store.getters.loadedCompanys;
+
+    error () {
+      return this.$store.getters.error
     },
-    
-    error() {
-      return this.$store.getters.error;
-    },
-    loading() {
-      return this.$store.getters.isLoading;
+    loading () {
+      return this.$store.getters.isLoading
     }
   }
-};
+}
 </script>
 
 <style lang="scss">

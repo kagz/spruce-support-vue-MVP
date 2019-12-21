@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import VeeValidate from 'vee-validate'
 import App from './App'
-import * as firebase from 'firebase'
-
+import jQuery from 'jquery'
+import { fb } from './firebase'
+import VueFirestore from 'vue-firestore'
 import store from './store'
 import router from './router'
 import AlertCmp from './components/crud/shared/Alert'
@@ -13,12 +14,22 @@ import YmapPlugin from 'vue-yandex-maps'
 import VueCarousel from 'vue-carousel'
 // NOTE: workaround for VeeValidate + vuetable-2
 import Swal from 'sweetalert2'
+require('firebase/firestore')
+
+Vue.use(VueFirestore, {
+  key: 'id', // the name of the property. Default is '.key'.
+  enumerable: true //  whether it is enumerable or not. Default is true.
+})
+
+Vue.use(VueFirestore)
 
 Vue.use(VueCarousel)
 Vue.use(VuesticPlugin)
 Vue.use(YmapPlugin)
 Vue.filter('date', DateFilter)
 Vue.component('app-alert', AlertCmp)
+
+window.$ = window.jQuery = jQuery
 
 window.Swal = Swal
 
@@ -33,43 +44,14 @@ window.Toast = Toast
 
 Vue.use(VeeValidate, { fieldsBagName: 'formFields' })
 
-router.beforeEach((to, from, next) => {
-  store.dispatch('clearError')
-  store.commit('setLoading', true)
-  next()
-})
+let app = ''
 
-router.afterEach((to, from) => {
-  store.dispatch('clearError')
-  store.commit('setLoading', false)
-})
-
-/* eslint-disable no-new */
-
-new Vue({
-  el: '#app',
-  router,
-  store,
-  render: h => h(App),
-  created () {
-    firebase.initializeApp({
-      apiKey: 'AIzaSyCa2VuBK_54uSIygqegmguYVJiaCk9gliU',
-      authDomain: 'kamagera-aa372.firebaseapp.com',
-      databaseURL: 'https://kamagera-aa372.firebaseio.com/',
-      projectId: 'kamagera-aa372',
-      storageBucket: 'gs://kamagera-aa372.appspot.com'
-    })
-
-    // firebase.functions().useFunctionsEmulator('http://localhost:8080')
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        // store.dispatch('clearError')
-        this.$store.dispatch('autoSignIn', user)
-        this.$store.dispatch('fetchUserData')
-      }
-    })
-    this.$store.dispatch('loadJobs')
-    this.$store.dispatch('loadCompanys')
-  },
-
+fb.auth().onAuthStateChanged(function (user) {
+  if (!app) {
+    new Vue({
+      router,
+      store,
+      render: (h) => h(App)
+    }).$mount('#app')
+  }
 })

@@ -5,12 +5,7 @@
         <vuestic-widget headerText="Update Profile">
           <!-- <div>{{ userIsAuthenticated ? 'Update Profile' : 'Register Profile' }}</div> -->
           <div>
-            <div class="spinner-border" v-if="loading" role="status">
-              <span class="sr-only">Loading...</span>
-            </div>
-            <div v-if="error">
-              <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
-            </div>
+
           </div>
           <form @submit.prevent="onCreateProfile">
             <div class="row">
@@ -18,7 +13,7 @@
                 <fieldset>
                   <div class="form-group">
                     <div class="input-group">
-                      <input id="fullname" v-model="fullname" required />
+                      <input  v-model="profile.fullname" required />
                       <label class="control-label" for="simple-input">Full Name</label>
                       <i class="bar"></i>
                     </div>
@@ -32,20 +27,20 @@
                     </div>
                   </div> -->
 
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                     <div class="input-group">
-                      <input id="email" v-model="email" required />
+                      <input id="email" v-model="profile.email" required />
                       <label class="control-label" for="simple-input">Email</label>
                       <i class="bar"></i>
                     </div>
-                  </div>
+                  </div> -->
                 </fieldset>
               </div>
 
               <div class="col-md-6">
                 <div class="form-group">
                   <div class="input-group">
-                    <input id="passport" v-model="passport" required />
+                    <input id="passport" v-model="profile.passport" required />
                     <label class="control-label" for="simple-input">Passport Number</label>
                     <i class="bar"></i>
                   </div>
@@ -54,13 +49,13 @@
                 <fieldset>
                   <div class="form-group">
                     <div class="input-group">
-                      <input id="phone" v-model="phone" required />
+                      <input  v-model="profile.phone" required />
                       <label class="control-label" for="simple-input">Phone Number</label>
                       <i class="bar"></i>
                     </div>
                   </div>
                   <div class="input-group" style="margin:10px">
-                    <input type="file" id="file" ref="file" v-on:change="onChangeFileUpload()" />
+                    <input type="file" ref="file" v-on:change="onChangeFileUpload()" />
                   </div>
                   <!-- <vuestic-file-upload type="gallery" :file-types="'.png, .jpg, .jpeg'" /> -->
                 </fieldset>
@@ -78,99 +73,104 @@
 
 <script>
 
-import axios from "axios";
+import { fb, db } from '../../firebase'
+import axios from 'axios'
 export default {
-  name: "newprofile",
+  name: 'newprofile',
   state: {
     user: null
   },
-  data() {
+  data () {
     return {
-     
-        fullname: "",
-        phone: "",
-        // secondname: "",
-        passport: "",
-        email: "",
-        file: ""
-    
-    };
-  },
-  computed: {
-    formIsValid() {
-      return (
-        this.fullname !== "" &&
-        this.phone !== "" &&
-        // this.secondname !== "" &&
-        this.passport !== "" &&
-        this.email !== "" &&
-        this.file !== ""
-      );
-    },
-
-    error() {
-      return this.$store.getters.error;
-    },
-    loading() {
-      return this.$store.getters.isLoading;
+      profile: {
+        fullname: null,
+        phone: null,
+        passport: null,
+        // email: '',
+        file: ''
+      }
     }
   },
 
+  computed: {
+    formIsValid () {
+      return (
+        this.fullname !== '' &&
+        this.phone !== '' &&
+        // this.secondname !== "" &&
+        this.passport !== '' &&
+        this.email !== '' &&
+        this.file !== ''
+      )
+    },
+
+    error () {
+      return this.$store.getters.error
+    },
+    loading () {
+      return this.$store.getters.isLoading
+    }
+  },
+  firestore () {
+    const user = fb.auth().currentUser
+    return {
+      profile: db.collection('profiles').doc(user.uid),
+    }
+  },
   methods: {
-    onPickFile() {
-      this.$refs.file.click();
+    onPickFile () {
+      this.$refs.file.click()
     },
-    onChangeFileUpload() {
-      this.file = this.$refs.file.files[0];
+    onChangeFileUpload () {
+      this.file = this.$refs.file.files[0]
     },
 
-    async onCreateProfile() {
-      if (!this.formIsValid) {
-        return;
-      }
-
-      let formData = new FormData();
-      formData.append("file", this.file);
+    async onCreateProfile () {
+      let formData = new FormData()
+      formData.append('file', this.file)
 
       await axios
         .post(
-          "https://us-central1-kamagera-aa372.cloudfunctions.net/storeImage",
+          'https://us-central1-kamagera-aa372.cloudfunctions.net/storeImage',
           formData,
           {
             headers: {
-              "Access-Control-Allow-Origin": true,
+              'Access-Control-Allow-Origin': true,
               crossorigin: true
             }
           }
         )
         .then(resp => {
-          // console.log(resp.data)
-          // (this.imagePath = resp.imagePath), (this.imageUrl = resp.imageUrl);
-          console.log("image url returned" + resp.data.imageUrl);
           try {
             let profileData = {
               fullname: this.fullname,
               phone: this.phone,
               passport: this.passport,
-              email: this.email,
+              // email: this.email,
               imagePath: resp.data.imagePath,
               imageUrl: resp.data.imageUrl,
-              userId: this.$store.getters.user.userId,
-              date: Date.now()
-            };
-            this.$store.dispatch("createProfile", profileData);
-            this.$router.push("/admin/dashboard");
+              // userId: this.profile.id,
+              created: Date.now()
+            }
+            this.$firestore.profile.update(profileData)
+            this.$router.push('/admin/dashboard')
+
+            // eslint-disable-next-line no-undef
+            Toast.fire({
+              type: 'success',
+              title: 'new Profile posted successfully'
+            })
           } catch (err) {
-            console.log(err);
+            console.log(err)
           }
 
           // console.log(resp.data);
         })
 
         .catch(() => {
-          console.log("FAILURE!!");
-        });
+          console.log('FAILURE!!')
+        })
     }
   }
-};
+}
 </script>

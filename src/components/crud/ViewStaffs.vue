@@ -3,36 +3,34 @@
     <div class="row">
       <div class="col-xs-12 col-md-12">
         <vuestic-widget headerText="Our Staffs">
-          <div class="spinner-border" v-if="loading" role="status">
+          <!-- <div class="spinner-border" v-if="loading" role="status">
             <span class="sr-only">Loading...</span>
           </div>
           <div v-if="error">
             <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
-          </div>
+          </div> -->
 
           <div class="table-responsive">
             <table class="table table-striped first-td-padding">
               <thead>
                 <tr>
-                  <td> full name</td>
+                  <td>full name</td>
                   <td>email</td>
                   <td>phone</td>
-                   <td>passport</td>
+                  <td>passport</td>
                   <td align="right">worked hours</td>
-                   <td align="right">edit staff</td>
-                 
+                  <td align="right">edit staff</td>
+
                   <td></td>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>sammy kamonjo</td>
-                  <td>kamonjo@sprucesupport.com</td>
-                  <td>0700123456</td>
-                   <td>a123456z</td>
-                    <td align="right">
-                  48hrs
-                  </td>
+                <tr v-for="staff in staffs" :key="staff.id">
+              <td>{{staff.fullname}}</td>
+                  <td>{{staff.email}}</td>
+                  <td>{{staff.phone}}</td>
+                  <td>{{staff.passport}}</td>
+                  <td align="right">48hrs</td>
                   <td align="right">
                     <div>
                       <a class="btn btn-with-icon btn-success btn-micro rounded-icon my-2 my-sm-0">
@@ -52,26 +50,17 @@
 </template>
 
 <script>
-import Vue from "vue";
-
-import FieldsDef from "vuestic-components/vuestic-datatable/data/fields-definition";
-import ItemsPerPageDef from "vuestic-components/vuestic-datatable/data/items-per-page-definition";
-import QueryParams from "vuestic-components/vuestic-datatable/data/query-params";
-
+import { db } from '../../firebase'
 export default {
-  name: "viewstaffs",
-  components: {
-    error() {
-      return this.$store.getters.error;
-    },
-    loading() {
-      return this.$store.getters.isLoading;
+  name: 'viewstaffs',
+
+  firestore () {
+    return {
+      staffs: db.collection('profiles'),
     }
   },
-  data() {
-    return {};
-  }
-};
+}
+
 </script>
 
 <style lang="scss">

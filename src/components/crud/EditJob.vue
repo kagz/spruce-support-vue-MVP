@@ -63,13 +63,12 @@
                     </div>
                   </div>
 
-               
                     <vuestic-file-upload
                       type="single"
                       :file-types="'.png, .jpg, .jpeg'"
-                  
+
                     />
-                 
+
                 </fieldset>
               </div>
             </div>
@@ -86,63 +85,18 @@
 <script>
 
 export default {
-  name: "editjob",
+  props: ['id'],
+  name: 'editjob',
   computed: {
-    datePickerDisabled: () => [date => !(date.getDate() % 5)],
-    isSuccessfulEmailValid() {
-      let isValid = false;
-      if (this.formFields.successfulEmail) {
-        isValid =
-          this.formFields.successfulEmail.validated &&
-          this.formFields.successfulEmail.valid;
-      }
-      return isValid;
-    }
-  },
-  data() {
-    return {
-      isMale: true,
-  
-      chosenCountry: "",
-      clearableText: "",
-      successfulEmail: "andrei@dreamsupport.io",
-      wrongEmail: "andrei@dreamsupport",
-      simpleOptions: [
-        {
-          id: 1,
-          description: "First option"
-        },
-        {
-          id: 2,
-          description: "Second option"
-        },
-        {
-          id: 3,
-          description: "Third option"
-        }
-      ],
-      simpleSelectModel: "",
-      multiSelectModel: [],
-   
 
-      datepicker: {
-        simple: "2018-05-09",
-        time: "2018-05-08 14:10",
-        range: "2018-05-08 to 2018-05-23",
-        disabled: "2018-05-09",
-        multiple: "2018-04-25, 2018-04-27"
-      }
-    };
+  },
+  data () {
+    return {
+    }
   },
   methods: {
-    clear(field) {
-      this[field] = "";
-    }
+
   },
-  created() {
-    this.$nextTick(() => {
-      this.$validator.validateAll();
-    });
-  }
-};
+
+}
 </script>
